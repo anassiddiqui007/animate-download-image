@@ -1,8 +1,8 @@
 
-var img, audio, canvas, ctx, x, dx,start;
+var img, audio, canvas, ctx, x, dx, start;
 
 function play(){
-  //clear all timeouts when play button is clicked
+  //reset all timeouts when play button is clicked
   for(var i=0; i<100; i++){
     window.clearTimeout(i);
   };
@@ -46,8 +46,11 @@ function exportVid(blob) {
 }
 
 function animate(){
-  x = (x - dx) % canvas.width;     //New x coordinate for image
-  ctx.drawImage(img, x,0,img.width,canvas.height);
+  x = (x - dx) % canvas.width;     //New x coordinate for image (Moving left)
+  //image dimensions in canvas
+  var imgWidthCanvas = img.width;
+  var imgHeightCanvas = canvas.height;
+  ctx.drawImage(img,x,0,imgWidthCanvas,imgHeightCanvas);
   if (Date.now()-start <= 5000){   //Animate for 5 sec
     requestAnimationFrame(animate);
   }
@@ -64,7 +67,6 @@ $(document).ready(function() {
   //Canvas
   canvas = $('#canvas')[0];
   ctx = canvas.getContext('2d');
-  // img.height = canvas.height;
   //x movement parameters
   dx = 1;
 });
